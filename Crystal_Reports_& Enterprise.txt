@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------------------------
+// Array anlegen und befüllen
+//---------------------------------------------------------------------------------------------
+Global StringVar Array Description := MakeArray(
+     "ZA1a "        + "@Einzahlungsscheine und Quickpay: Anzahl der gescannten Belege (Soll und Haben) (ES und QP)"
+    ,"ZA1b "        + "@Sonstige vereinbarte Formulare des Kunden: Anzahl der gescannten Belege (Soll und Haben)"
+    ,"ZA1c "        + "@Aufträge im Freiformat: Anzahl der gescannten Belege (Soll und Haben)"
+    ,"ZA1d "        + "@Nicht scannbare Aufträge für die manuelle Erfassung: Anzahl der manuell erfassten Transaktionen"
+    ,"ZA1e "        + "@Nachbearbeitung ES und Quickpay: Anzahl der manuell nachbearbeiteten Belege (Soll und Haben) inkl. gelöschter Belege (ES und QP)"
+    ,"ZA1f_KZA1f_BK " + "@RETOURNIERUNG an den Kunden oder BANKKUNDEN: Anzahl der retournierten Aufträge"
+    ,"ZA1g "        + "@Aufträge mit manueller Unterschriftenprüfung: Anzahl der Aufträge mit manueller Unterschriftenprüfung"
+    ,"ZA1h "        + "@Erfassung Expressaufträge: Anzahl Aufträge, die express ausgeführt werden"
+    ,"ZA1_TOTAL_Rest " + "@Restliche Belege: Gesamtheit nachbearbeitete Belege (Sonstige vereinbarte Formulare des Kunden, Aufträge im Freiformat und manuell erfasste Transaktionen)"
+    ,"ZA1_AF_Exp "  + "@Abwicklungsfehler Expressaufträge"
+    ,"ZA1_AF_QP "   + "@Abwicklungsfehler bei digitalisierten Belegen (Einzahlungsscheine und Quickpay)"
+    ,"ZA1_AF_Rest " + "@Abwicklungsfehler bei digitalisierten Belegen (Restliche Belege)"
+    );
+
+//----------------------------------------
+// Loop ausführen
+//---------------------------------------------------------------------------------------------
+For i := 1 to 11 Do
+(
+ if InStrRev(Description[i],{Datengrundlage_.ID}) > 0 
+ then 
+     (Description[i]; 
+      Exit For
+      )
+ );
+
+//---------------------------------------------------------------------------------------------
+// SubString
+//---------------------------------------------------------------------------------------------
+Description[i] 
+[   (InStrRev(Description[i],"@")+ 1) // Codes ueberspringen bis an Positon an welcher die Beschreibung beginnt
+    to 
+    (length(Description[i]))            
+]
